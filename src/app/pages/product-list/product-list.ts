@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';  // Importa CommonModule para *ngFor y demás
+import { CommonModule } from '@angular/common';
+import { Cart } from '../../services/cart';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-list',
@@ -15,14 +17,28 @@ export class ProductList {
       name: 'Camiseta Angular',
       description: 'Camiseta oficial del framework Angular.',
       price: 19.99,
-      imageUrl: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=150&q=80'
+      imageUrl: 'https://devwear.co/cdn/shop/files/ImagendeWhatsApp2024-01-31alas12.34.17_606b124c.jpg?v=1706723156'
     },
     {
       id: 2,
       name: 'Taza TypeScript',
       description: 'Para tus mañanas de código.',
       price: 9.99,
-      imageUrl: 'https://images.pexels.com/photos/414645/pexels-photo-414645.jpeg?auto=compress&cs=tinysrgb&h=150'
+      imageUrl: 'https://devwear.co/cdn/shop/products/MUG_TS_M1.jpg?v=1614304901'
     }
   ];
+
+  constructor(private cart: Cart) { }
+
+  addToCart(product: Product) {
+    this.cart.addToCart(product);
+  }
+
+  get cartItems(): Product[] {
+    return this.cart.getItems();
+  }
+
+  clearCart() {
+    this.cart.clearCart();
+  }
 }
